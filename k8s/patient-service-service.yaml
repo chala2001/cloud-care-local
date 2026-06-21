@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: patient-service
+  namespace: dev
+spec:
+  selector:
+    app: patient-service
+  ports:
+    - port: 8001
+      targetPort: 8001
+  type: ClusterIP
