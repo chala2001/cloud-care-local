@@ -1,0 +1,30 @@
+replicaCount: 2
+
+image:
+  repository: "670794226080.dkr.ecr.ap-south-1.amazonaws.com/cloudcare-k8s-patient-service"
+  tag: "latest"            # overridden by CI with git SHA: --set image.tag=abc1234
+  pullPolicy: Always
+
+resources:
+  requests:
+    memory: "128Mi"
+    cpu: "100m"
+  limits:
+    memory: "256Mi"
+    cpu: "500m"
+
+env:
+  DB_SCHEMA: "patients"
+  LOG_LEVEL: "WARNING"
+
+hpa:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 6
+  targetCPUUtilizationPercentage: 70
+
+databaseSecretName: "patient-service-db-secret"
+
+externalSecret:
+  enabled: false
+  remoteSecretName: "cloudcare-k8s/patient-service/db"

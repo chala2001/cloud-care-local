@@ -15,14 +15,20 @@ spec:
     spec:
       containers:
         - name: patient-service
-          image: python:3.12-slim
-          command: ["python", "-m", "http.server", "8001"]
+          image: patient-service:local
+          imagePullPolicy: Never        # use local image, don't pull from registry
           ports:
             - containerPort: 8001
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: patient-service-db-secret
+                  key: DATABASE_URL
           resources:
             requests:
               cpu: "100m"
               memory: "128Mi"
             limits:
-              cpu: "200m"
+              cpu: "500m"
               memory: "256Mi"
