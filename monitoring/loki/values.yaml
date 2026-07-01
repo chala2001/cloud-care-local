@@ -4,6 +4,7 @@
 
 loki:
   enabled: true
+  isDefault: false   # Prometheus is already the default datasource in Grafana
 
   # Store logs in memory/local disk — fine for a lab cluster
   # In real prod you would use s3: { bucketName: "...", region: "..." }
