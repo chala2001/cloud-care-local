@@ -3,14 +3,13 @@ replicaCount: 1
 image:
   repository: patient-service
   tag: local
-  pullPolicy: Never       # use locally built minikube image
+  pullPolicy: Never
 
 service:
   port: 8001
 
-databaseSecretName: patient-service-db-secret
-
-env: {}
+env:
+  databaseSecretName: patient-service-db-secret
 
 resources:
   requests:
@@ -21,7 +20,10 @@ resources:
     memory: "256Mi"
 
 hpa:
-  enabled: false          # disable HPA for now (Phase 6)
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 30   # lower threshold so it's easy to trigger locally
 
 serviceAccount:
-  create: false           # no IRSA needed locally
+  create: false
