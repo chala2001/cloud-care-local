@@ -1,0 +1,27 @@
+replicaCount: 1
+
+image:
+  repository: appointment-service
+  tag: local
+  pullPolicy: Never
+
+service:
+  port: 8002
+
+databaseSecretName: appointment-service-db-secret
+
+env: {}
+
+resources:
+  requests:
+    cpu: "100m"
+    memory: "128Mi"
+  limits:
+    cpu: "500m"
+    memory: "256Mi"
+
+hpa:
+  enabled: false
+
+serviceAccount:
+  create: false
